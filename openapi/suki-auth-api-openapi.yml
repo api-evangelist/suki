@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Suki Auth API
+  description: |
+    Partner authentication and token-issuance endpoints used to obtain
+    `sdp_suki_token` access tokens for calling Suki Speech Service
+    Ambient, Dictation, Form Filling, and Info APIs. Tokens are JWTs;
+    the JWKS endpoint exposes verification keys.
+  version: '1.0.0'
+  contact:
+    name: Suki for Partners
+    url: https://developer.suki.ai
+servers:
+  - url: https://sdp.suki-stage.com/api/v1
+    description: Suki Speech Service staging environment
+tags:
+  - name: Auth
+    description: Provider Registration And Token Issuance
+paths:
+  /auth/register:
+    post:
+      tags: [Auth]
+      summary: Register Provider
+      operationId: registerProvider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderRegistration'
+      responses:
+        '201':
+          description: Provider registered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login And Obtain Token
+      operationId: loginProvider
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Access token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+  /auth/jwks:
+    get:
+      tags: [Auth]
+      summary: Get JWKS
+      operationId: getJwks
+      responses:
+        '200':
+          description: JSON Web Key Set used to verify Suki-issued JWTs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Jwks'
+components:
+  schemas:
+    ProviderRegistration:
+      type: object
+      required: [partnerProviderId, name]
+      properties:
+        partnerProviderId: { type: string, description: Partner-owned provider identifier }
+        name: { type: string }
+        npi: { type: string, description: National Provider Identifier }
+        specialty: { type: string }
+        email: { type: string, format: email }
+    Provider:
+      type: object
+      properties:
+        providerId: { type: string }
+        partnerProviderId: { type: string }
+        name: { type: string }
+        specialty: { type: string }
+        createdAt: { type: string, format: date-time }
+    LoginRequest:
+      type: object
+      required: [partnerId, partnerSecret]
+      properties:
+        partnerId: { type: string }
+        partnerSecret: { type: string }
+        providerId: { type: string, description: Optional provider to scope token to }
+    TokenResponse:
+      type: object
+      properties:
+        sdpSukiToken: { type: string, description: JWT to send in the sdp_suki_token header }
+        tokenType: { type: string, example: Bearer }
+        expiresIn: { type: integer, description: Seconds until expiry }
+    Jwks:
+      type: object
+      properties:
+        keys:
+          type: array
+          items:
+            type: object
+            properties:
+              kty: { type: string }
+              kid: { type: string }
+              use: { type: string }
+              alg: { type: string }
+              n: { type: string }
+              e: { type: string }

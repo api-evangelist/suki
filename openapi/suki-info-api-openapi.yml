@@ -1,0 +1,169 @@
+openapi: 3.0.3
+info:
+  title: Suki Info API
+  description: |
+    Reference/lookup endpoints exposing Suki-curated clinical metadata
+    used to drive ambient note generation, ordering, and form filling.
+    Read-only catalogs of specialties, diagnoses, encounter types, visit
+    types, LOINC note sections, provider roles, medication orders, and
+    associated coding systems and dosage units.
+  version: '1.0.0'
+  contact:
+    name: Suki for Partners
+    url: https://developer.suki.ai
+servers:
+  - url: https://sdp.suki-stage.com/api/v1
+    description: Suki Speech Service staging environment
+tags:
+  - name: Info
+    description: Clinical Reference Catalogs
+  - name: MedicationOrders
+    description: Medication Ordering Metadata
+security:
+  - SdpSukiToken: []
+paths:
+  /info/specialties:
+    get:
+      tags: [Info]
+      summary: List Specialties
+      operationId: listSpecialties
+      responses:
+        '200':
+          description: Supported medical specialties
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/diagnoses:
+    get:
+      tags: [Info]
+      summary: List Diagnoses
+      operationId: listDiagnoses
+      parameters:
+        - name: q
+          in: query
+          schema: { type: string }
+        - name: system
+          in: query
+          schema: { type: string, enum: [icd-10, snomed-ct] }
+      responses:
+        '200':
+          description: Supported diagnosis codes
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/encounter-types:
+    get:
+      tags: [Info]
+      summary: List Encounter Types
+      operationId: listEncounterTypes
+      responses:
+        '200':
+          description: Encounter types
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/visit-types:
+    get:
+      tags: [Info]
+      summary: List Visit Types
+      operationId: listVisitTypes
+      responses:
+        '200':
+          description: Visit types
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/loincs:
+    get:
+      tags: [Info]
+      summary: List LOINC Note Sections
+      operationId: listLoincs
+      responses:
+        '200':
+          description: LOINC-coded note sections supported by Suki
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/provider-roles:
+    get:
+      tags: [Info]
+      summary: List Provider Roles
+      operationId: listProviderRoles
+      responses:
+        '200':
+          description: Provider roles
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/medication-orders:
+    get:
+      tags: [MedicationOrders]
+      summary: List Medication Order Metadata
+      operationId: listMedicationOrders
+      responses:
+        '200':
+          description: Medication order metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/MedicationOrderMeta' }
+  /info/orders-coding-systems:
+    get:
+      tags: [MedicationOrders]
+      summary: List Order Coding Systems
+      operationId: listOrderCodingSystems
+      responses:
+        '200':
+          description: Supported coding systems for medication orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+  /info/orders-dosage-units:
+    get:
+      tags: [MedicationOrders]
+      summary: List Dosage Units
+      operationId: listOrderDosageUnits
+      responses:
+        '200':
+          description: Supported dosage units for orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/CodeLabel' }
+components:
+  securitySchemes:
+    SdpSukiToken:
+      type: apiKey
+      in: header
+      name: sdp_suki_token
+  schemas:
+    CodeLabel:
+      type: object
+      properties:
+        code: { type: string }
+        label: { type: string }
+        system: { type: string }
+    MedicationOrderMeta:
+      type: object
+      properties:
+        code: { type: string }
+        label: { type: string }
+        rxnorm: { type: string }
+        route: { type: string }
+        defaultDosageUnit: { type: string }

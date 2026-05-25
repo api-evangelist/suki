@@ -1,0 +1,57 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Suki Auth API — Tokens
+  description: Partner authentication and token issuance for Suki Speech Service. Registers providers, issues JWT access tokens, exposes JWKS.
+  tags:
+    - Suki
+    - Auth
+    - JWT
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+  - namespace: env
+    keys:
+      SUKI_PARTNER_ID: SUKI_PARTNER_ID
+      SUKI_PARTNER_SECRET: SUKI_PARTNER_SECRET
+capability:
+  consumes:
+    - type: http
+      namespace: auth-tokens
+      baseUri: https://sdp.suki-stage.com
+      description: Suki Speech Service authentication endpoints.
+      resources:
+        - name: auth-register
+          path: /api/v1/auth/register
+          operations:
+            - name: registerprovider
+              method: POST
+              inputParameters:
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: auth-login
+          path: /api/v1/auth/login
+          operations:
+            - name: login
+              method: POST
+              inputParameters:
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: auth-jwks
+          path: /api/v1/auth/jwks
+          operations:
+            - name: getjwks
+              method: GET
+              outputParameters:
+                - { name: result, type: object, value: $. }
+  exposes:
+    - type: mcp
+      namespace: auth-tokens-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Suki Auth.
+      tools:
+        - { name: suki-auth-register-provider, description: Register a partner-managed provider account, hints: { readOnly: false, destructive: false, idempotent: false }, call: auth-tokens.registerprovider, with: { body: tools.body } }
+        - { name: suki-auth-login, description: Exchange partner credentials for an sdp_suki_token JWT, hints: { readOnly: false, destructive: false, idempotent: false }, call: auth-tokens.login, with: { body: tools.body } }
+        - { name: suki-auth-get-jwks, description: Fetch JSON Web Key Set used to verify Suki-issued JWTs, hints: { readOnly: true, destructive: false, idempotent: true }, call: auth-tokens.getjwks, with: {} }

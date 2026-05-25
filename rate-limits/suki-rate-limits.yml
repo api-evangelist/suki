@@ -1,0 +1,56 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Suki AI
+providerId: suki
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - Healthcare
+  - Rate Limiting
+  - Concurrency
+description: >-
+  Suki Speech Service does not publish a public rate-limit / quota
+  table. Limits are negotiated as part of the Suki Platform partner
+  agreement and typically scoped to concurrent ambient sessions,
+  concurrent dictation sessions, concurrent form-filling sessions, and
+  monthly audio minutes. Standard HTTP 429 throttling applies; callers
+  must back off on retry-after.
+sources:
+  - https://developer.suki.ai/
+  - https://developer.suki.ai/documentation/overview
+  - https://developer.suki.ai/api-reference/overview
+headers:
+  retryAfter: retry-after
+responseCodes:
+  throttled: 429
+  quotaExceeded: 429
+algorithm: per-partner-concurrency
+spendLimits:
+  - tier: Partner Agreement
+    monthlyCap: contract-defined
+limits:
+  - tier: Partner Agreement
+    service: Suki Ambient API
+    concurrentSessions: contract-defined
+    monthlyAudioMinutes: contract-defined
+    notes: Contracted at signing; enforced by Suki Speech Service.
+  - tier: Partner Agreement
+    service: Suki Dictation API
+    concurrentSessions: contract-defined
+    monthlyAudioMinutes: contract-defined
+    notes: Contracted at signing.
+  - tier: Partner Agreement
+    service: Suki Form Filling API
+    concurrentSessions: contract-defined
+    monthlyAudioMinutes: contract-defined
+    notes: Contracted at signing.
+  - tier: Suki Assistant (end-user)
+    service: Suki Assistant app
+    perProvider: unlimited
+    notes: End-user Suki Assistant subscriptions are sold per provider per month with no per-clinician minute or session caps reported.
+notes:
+  - Suki does not publish a public per-second / per-minute REST rate-limit policy.
+  - Long-running ambient sessions are governed by partner-specific concurrency caps rather than a token bucket.
+  - WebSocket audio streams are bounded by partner agreement concurrency, not by HTTP rate limit.

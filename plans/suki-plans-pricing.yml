@@ -1,0 +1,115 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Suki AI
+providerId: suki
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - Healthcare
+  - Clinical Documentation
+  - Per Provider
+  - Enterprise
+description: >-
+  Suki AI does not publish a public price list; commercial terms are
+  negotiated per health system / partner. Suki Assistant (clinician
+  end-user product) is reliably reported in the press and analyst
+  coverage at roughly $299-$399 per provider per month, with enterprise
+  contracts spanning ~$350-$500+ per provider per month depending on EHR
+  integration depth and organization size. Suki Platform (Suki for
+  Partners) — the developer SDK + API offering — is sold via
+  partnership / commercial agreement; no public per-call or per-session
+  rate card is published.
+sources:
+  - https://www.suki.ai/
+  - https://www.suki.ai/platform/
+  - https://www.healos.ai/blog/suki-pricing-features-cost-and-the-best-alternatives-in-2025
+  - https://www.scribing.io/blog/suki-ai-pricing-breakdown
+  - https://www.lemonfox.ai/blog/suki-ai-pricing
+plans:
+  - id: suki-assistant-compose
+    name: Suki Assistant — Smaller Practice (formerly Suki Compose)
+    type: subscription
+    description: Per-provider monthly subscription for smaller clinics; includes ambient documentation, dictation, voice commands, and core EHR connectivity.
+    entries:
+      - label: Per provider per month
+        name: per-provider
+        type: recurring
+        metric: provider
+        limit: 1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '299.00'
+        userMultiplied: true
+    elements:
+      - name: Ambient note generation
+      - name: Dictation
+      - name: Voice commands
+      - name: Core EHR connectivity
+  - id: suki-assistant
+    name: Suki Assistant — Health System
+    type: subscription
+    description: Per-provider monthly subscription for larger practices and health systems with full ambient note generation and bidirectional EHR integration.
+    entries:
+      - label: Per provider per month
+        name: per-provider
+        type: recurring
+        metric: provider
+        limit: 1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '399.00'
+        userMultiplied: true
+    elements:
+      - name: Ambient note generation
+      - name: Dictation
+      - name: Voice commands
+      - name: Bidirectional EHR integration (Epic, Oracle Health, athenahealth, MEDITECH)
+      - name: Order staging
+      - name: Problem-based charting
+  - id: suki-enterprise
+    name: Suki Enterprise / Health System Contract
+    type: enterprise
+    description: Negotiated enterprise contract for larger health systems with custom EHR integration scope, onboarding, training, and support.
+    entries:
+      - label: Per provider per month (negotiated range)
+        name: per-provider
+        type: recurring
+        metric: provider
+        limit: 1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '350-500+'
+        userMultiplied: true
+    elements:
+      - name: All Suki Assistant features
+      - name: Implementation, onboarding, integration customization
+      - name: Inpatient ambient (MEDITECH-anchored deployments)
+      - name: Dedicated customer success
+  - id: suki-platform-partner
+    name: Suki Platform / Suki for Partners
+    type: enterprise
+    description: Developer / OEM commercial agreement granting partner access to Suki Speech Service REST APIs, WebSocket audio endpoints, webhooks, and Web/Mobile/Dictation SDKs. Pricing negotiated per partnership.
+    entries:
+      - label: Custom partnership pricing
+        name: partner
+        type: enterprise
+        metric: agreement
+        limit: -1
+        timeFrame: contract
+        geo: global
+        unit: 1
+        price: contact-sales
+        userMultiplied: false
+    elements:
+      - name: Suki Ambient API (REST + WebSocket + Webhooks)
+      - name: Suki Dictation API (REST + WebSocket)
+      - name: Suki Form Filling API
+      - name: Web SDK, Headless Web SDK, iOS Mobile SDK, Dictation SDK
+      - name: 80+ language support
+      - name: 100+ specialty support
+      - name: HIPAA / SOC 2 Type 2 compliance

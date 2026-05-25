@@ -1,0 +1,106 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Suki AI
+providerId: suki
+created: '2026-05-24'
+modified: '2026-05-24'
+reconciled: false
+tags:
+  - FinOps
+  - Healthcare
+  - Per Provider
+  - Enterprise
+description: >-
+  FOCUS-aligned FinOps definition for Suki AI's commercial surface.
+  Suki Assistant is sold per provider per month. Suki Platform / Suki
+  for Partners is sold as an OEM partnership with negotiated commercial
+  terms; metered dimensions are partner-defined and typically include
+  ambient minutes, dictation minutes, form-filling minutes, and
+  concurrent sessions.
+sources:
+  - https://www.suki.ai/
+  - https://www.suki.ai/platform/
+  - https://developer.suki.ai/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Suki AI, Inc.
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Subscription
+    - Usage
+    - Service
+    - Implementation
+  primaryUnit: provider-month
+  secondaryUnits:
+    - audio-minute
+    - session
+    - concurrent-session
+    - api-call
+focusColumns:
+  ServiceName: Suki Assistant / Suki Platform
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Suki AI
+  PublisherName: Suki AI
+  InvoiceIssuerName: Suki AI
+  PricingCategory: Subscription
+  PricingUnit: provider-month
+  BillingCurrency: USD
+meters:
+  - name: providers_seats
+    unit: provider-month
+    aggregation: count
+    dimensions:
+      - org
+      - specialty
+      - plan
+    description: Active per-provider Suki Assistant subscriptions in the billing period.
+  - name: ambient_audio_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - partner
+      - provider
+      - specialty
+    description: Audio minutes processed through the Suki Ambient API.
+  - name: dictation_audio_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - partner
+      - provider
+    description: Audio minutes processed through the Suki Dictation API.
+  - name: form_filling_audio_minutes
+    unit: minute
+    aggregation: sum
+    dimensions:
+      - partner
+      - provider
+      - template
+    description: Audio minutes processed through the Suki Form Filling API.
+  - name: concurrent_sessions
+    unit: session
+    aggregation: peak
+    dimensions:
+      - partner
+      - service
+    description: Peak concurrent sessions per service for the billing period.
+costAllocation:
+  recommendedTags:
+    - org
+    - department
+    - specialty
+    - partner
+    - service
+notes:
+  - Suki does not publish a public, machine-readable price catalog; FOCUS rows must be reconciled against the customer's signed Suki contract.
+  - End-user Suki Assistant is reliably reported at ~$299-$399 per provider per month with enterprise contracts in the $350-$500+ range; treat these as planning estimates only.
+  - Suki Platform partner pricing is bespoke; metering dimensions above reflect the natural billable units for the underlying voice AI service.

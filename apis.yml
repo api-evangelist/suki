@@ -1,0 +1,309 @@
+aid: suki
+name: Suki AI
+description: >-
+  Suki is a Redwood City, California healthcare AI company building ambient
+  clinical intelligence for clinicians. Founded in 2017 by Punit Soni
+  (CEO, former Google and Flipkart) and Karthik Rajan (former Salesforce),
+  Suki has raised $168M+ across Series A-D from Venrock, March Capital,
+  First Round Capital, MedStar Health, and others. The company's flagship
+  product is Suki Assistant, an AI-powered voice-enabled scribe and
+  documentation assistant that listens to doctor-patient conversations
+  and generates specialty-specific clinical notes, patient instructions,
+  orders, and codes — claimed to cut documentation time by 72% across
+  100+ specialties. Beyond the end-user assistant, Suki ships Suki
+  Platform (also called Suki for Partners), a developer platform whose
+  Suki Speech Service exposes ambient documentation, dictation, and
+  form-filling capabilities as REST APIs, WebSocket audio-streaming
+  endpoints, webhooks, and SDKs (Web, Headless Web, Mobile iOS, Mobile
+  Android beta, Dictation iframe) so healthcare technology companies can
+  embed Suki's voice AI into their own EHR, telehealth, RCM, or vet-tech
+  applications. Suki has bidirectional ambient integrations with the four
+  leading EHRs — Epic, Oracle Health (Cerner), athenahealth, and
+  MEDITECH — plus partnerships with Amwell, Zoom, HealthEdge, WellSky,
+  MEDENT, and Bond Vet, and is deployed at 400+ health systems and
+  partners with a 70%+ clinician adoption rate.
+type: Index
+position: Provider
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - AI
+  - Artificial Intelligence
+  - Ambient Clinical Intelligence
+  - Medical Scribe
+  - Clinical Documentation
+  - Voice AI
+  - Speech Recognition
+  - Healthcare
+  - EHR Integration
+  - Epic
+  - Oracle Health
+  - athenahealth
+  - MEDITECH
+  - Dictation
+  - Form Filling
+  - Note Generation
+  - Generative AI
+  - HIPAA
+  - SOC2
+  - Healthcare Technology
+url: https://raw.githubusercontent.com/api-evangelist/suki/refs/heads/main/apis.yml
+created: '2026-05-24'
+modified: '2026-05-24'
+specificationVersion: '0.20'
+apis:
+  - aid: suki:suki-ambient-api
+    name: Suki Ambient API
+    description: >-
+      REST + WebSocket API that powers ambient clinical documentation.
+      Partners create an ambient session, seed it with patient/encounter
+      context, stream microphone audio over WebSocket, end the session,
+      then poll for and retrieve the generated clinical note, transcript,
+      structured data, and recording. Supports 100+ medical specialties,
+      80+ spoken languages with English note output, speaker diarization,
+      problem-based charting (PBC), and LOINC-coded note sections.
+    humanURL: https://developer.suki.ai/api-reference/overview
+    baseURL: https://sdp.suki-stage.com/api/v1/
+    tags:
+      - Ambient
+      - Clinical Documentation
+      - Note Generation
+      - Speech Recognition
+      - WebSocket
+    properties:
+      - type: Documentation
+        url: https://developer.suki.ai/api-reference/overview
+      - type: Documentation
+        url: https://developer.suki.ai/documentation/overview
+      - type: OpenAPI
+        url: openapi/suki-ambient-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/suki-ambient-session-schema.json
+      - type: JSONSchema
+        url: json-schema/suki-clinical-note-schema.json
+      - type: NaftikoCapability
+        url: capabilities/ambient-sessions.yaml
+      - type: NaftikoCapability
+        url: capabilities/ambient-content.yaml
+      - type: SDK
+        url: https://developer.suki.ai/web-sdk/overview
+        name: Suki Web SDK (@suki-sdk/react)
+      - type: SDK
+        url: https://developer.suki.ai/headless-web-sdk/introduction
+        name: Suki Headless Web SDK (@suki-sdk/platform-react, Beta)
+      - type: SDK
+        url: https://developer.suki.ai/mobile-sdk/overview
+        name: Suki Mobile SDK (iOS, SukiAmbientCore.framework)
+      - type: Webhooks
+        url: https://developer.suki.ai/api-reference/overview
+  - aid: suki:suki-dictation-api
+    name: Suki Dictation API
+    description: >-
+      REST + WebSocket API for real-time clinical dictation. Partners
+      open a dictation session, stream audio to a WebSocket, and receive
+      transcribed clinical text. Designed for both in-field dictation
+      (into a single EHR field) and scratchpad mode for free-form
+      capture. Also exposed through the Suki Dictation SDK as a hosted
+      iframe for fast web integration.
+    humanURL: https://developer.suki.ai/api-reference/ambient-dictation
+    baseURL: https://sdp.suki-stage.com/api/v1/
+    tags:
+      - Dictation
+      - Speech Recognition
+      - WebSocket
+      - Clinical Voice
+    properties:
+      - type: Documentation
+        url: https://developer.suki.ai/api-reference/ambient-dictation
+      - type: OpenAPI
+        url: openapi/suki-dictation-api-openapi.yml
+      - type: NaftikoCapability
+        url: capabilities/dictation-sessions.yaml
+      - type: SDK
+        url: https://developer.suki.ai/dictation-sdk/introduction
+        name: Suki Dictation SDK (@suki-sdk/dictation-react, Beta)
+  - aid: suki:suki-form-filling-api
+    name: Suki Form Filling API
+    description: >-
+      REST + WebSocket API that turns clinician voice input into
+      structured form data. Partners create a form-filling session,
+      attach a template, stream audio, then retrieve typed structured
+      output that can be mapped into their own intake, screening, or
+      assessment forms. Includes Suki-hosted form templates accessed via
+      a templates listing endpoint.
+    humanURL: https://developer.suki.ai/form-filling-api-reference/overview
+    baseURL: https://sdp.suki-stage.com/api/v1/
+    tags:
+      - Form Filling
+      - Structured Data
+      - Voice Capture
+      - WebSocket
+    properties:
+      - type: Documentation
+        url: https://developer.suki.ai/form-filling-api-reference/overview
+      - type: OpenAPI
+        url: openapi/suki-form-filling-api-openapi.yml
+      - type: JSONSchema
+        url: json-schema/suki-form-template-schema.json
+      - type: NaftikoCapability
+        url: capabilities/form-filling-sessions.yaml
+      - type: Webhooks
+        url: https://developer.suki.ai/form-filling-api-reference/overview
+  - aid: suki:suki-auth-api
+    name: Suki Auth API
+    description: >-
+      Authentication and token-issuance endpoints used by partners and
+      partner-managed providers to obtain access tokens for the Suki
+      Speech Service. Issues JWTs, exposes JWKS for verification, and
+      registers provider accounts. Every call to Ambient, Dictation, and
+      Form Filling APIs carries the partner token in the
+      `sdp_suki_token` header.
+    humanURL: https://developer.suki.ai/api-reference/authentication
+    baseURL: https://sdp.suki-stage.com/api/v1/
+    tags:
+      - Authentication
+      - Tokens
+      - JWT
+      - JWKS
+    properties:
+      - type: Documentation
+        url: https://developer.suki.ai/api-reference/authentication
+      - type: OpenAPI
+        url: openapi/suki-auth-api-openapi.yml
+      - type: NaftikoCapability
+        url: capabilities/auth-tokens.yaml
+  - aid: suki:suki-info-api
+    name: Suki Info API
+    description: >-
+      Reference/lookup endpoints that expose Suki-curated clinical
+      metadata used to drive note generation, ordering, and form
+      filling. Covers supported specialties, diagnoses, encounter and
+      visit types, LOINC note sections, provider roles, medication
+      orders, order coding systems, dosage units, and form templates.
+    humanURL: https://developer.suki.ai/api-reference/information
+    baseURL: https://sdp.suki-stage.com/api/v1/
+    tags:
+      - Reference Data
+      - Metadata
+      - Specialties
+      - LOINC
+      - Medication Orders
+    properties:
+      - type: Documentation
+        url: https://developer.suki.ai/api-reference/information
+      - type: OpenAPI
+        url: openapi/suki-info-api-openapi.yml
+      - type: NaftikoCapability
+        url: capabilities/info-reference.yaml
+common:
+  - type: Website
+    url: https://www.suki.ai
+  - type: About
+    url: https://www.suki.ai/about/
+  - type: Clinicians
+    url: https://www.suki.ai/clinicians/
+  - type: Technology
+    url: https://www.suki.ai/technology/
+  - type: Platform
+    url: https://www.suki.ai/platform/
+  - type: Partners
+    url: https://www.suki.ai/partners/
+  - type: EHRIntegrations
+    url: https://www.suki.ai/ehr-integrations/
+  - type: Epic
+    url: https://www.suki.ai/epic/
+  - type: athenahealth
+    url: https://www.suki.ai/athena/
+  - type: DeveloperPortal
+    url: https://developer.suki.ai/
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: APIReference
+    url: https://developer.suki.ai/api-reference/overview
+  - type: ReleaseNotes
+    url: https://developer.suki.ai/updates/release-notes
+  - type: LLMsTxt
+    url: https://developer.suki.ai/llms.txt
+  - type: HelpCenter
+    url: https://help.suki.ai
+  - type: TrustPortal
+    url: https://trust.suki.ai
+  - type: Blog
+    url: https://www.suki.ai/blog/
+  - type: Newsroom
+    url: https://www.suki.ai/news/
+  - type: PressReleases
+    url: https://www.suki.ai/press-media/
+  - type: Careers
+    url: https://www.suki.ai/careers/
+  - type: Contact
+    url: https://www.suki.ai/contact-us/
+  - type: Download
+    url: https://www.suki.ai/download/
+  - type: AppStore
+    url: https://apps.apple.com/us/app/suki/id1425102117
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/sukihq/
+  - type: Plans
+    url: plans/suki-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/suki-rate-limits.yml
+  - type: FinOps
+    url: finops/suki-finops.yml
+  - type: JSONLD
+    url: json-ld/suki-context.jsonld
+  - type: Vocabulary
+    url: vocabulary/suki-vocabulary.yml
+properties:
+  - type: Founded
+    data: 2017
+  - type: Headquarters
+    data: Redwood City, California, United States
+  - type: Founders
+    data: Punit Soni (CEO), Karthik Rajan
+  - type: Funding
+    data: $168M+ across Series A through Series D (Venrock, March Capital, First Round Capital, MedStar Health)
+  - type: Compliance
+    data: HIPAA, SOC 2 Type 2
+  - type: EHRPartners
+    data: Epic, Oracle Health (Cerner), athenahealth, MEDITECH
+  - type: TechnologyPartners
+    data: Amwell, Zoom, HealthEdge, WellSky, MEDENT, Bond Vet
+  - type: Reach
+    data: 400+ health systems and partners; deployed at 12+ MEDITECH health systems via single integration
+  - type: SpecialtyCoverage
+    data: 100+ medical specialties
+  - type: LanguageSupport
+    data: 80+ spoken languages with English note generation
+  - type: PartnerSummary
+    summary:
+      tagline: Suki AI — AI medical scribe and voice assistant for clinicians
+      description: >-
+        Suki Assistant generates specialty-specific clinical notes,
+        patient instructions, orders, and codes from doctor-patient
+        conversations. Suki Platform (Suki Speech Service) exposes the
+        same ambient documentation, dictation, and form-filling
+        capabilities to healthcare technology partners as REST APIs,
+        WebSockets, webhooks, and Web/Mobile/Dictation SDKs, with
+        bidirectional ambient integrations to Epic, Oracle Health,
+        athenahealth, and MEDITECH.
+      keyApis:
+        - Suki Ambient API
+        - Suki Dictation API
+        - Suki Form Filling API
+        - Suki Auth API
+        - Suki Info API
+      sources:
+        - https://www.suki.ai/
+        - https://www.suki.ai/platform/
+        - https://www.suki.ai/partners/
+        - https://www.suki.ai/ehr-integrations/
+        - https://developer.suki.ai/
+        - https://developer.suki.ai/documentation/overview
+        - https://developer.suki.ai/api-reference/overview
+        - https://developer.suki.ai/form-filling-api-reference/overview
+        - https://developer.suki.ai/llms.txt
+      updated: '2026-05-24'
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

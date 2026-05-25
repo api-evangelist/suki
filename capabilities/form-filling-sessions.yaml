@@ -1,0 +1,111 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Suki Form Filling API — Sessions
+  description: Drive Suki form-filling sessions — create, seed context, end, poll, retrieve structured data, submit feedback, list templates.
+  tags:
+    - Suki
+    - Form Filling
+    - Sessions
+  created: '2026-05-24'
+  modified: '2026-05-24'
+binds:
+  - namespace: env
+    keys:
+      SUKI_SDP_TOKEN: SUKI_SDP_TOKEN
+capability:
+  consumes:
+    - type: http
+      namespace: form-filling-sessions
+      baseUri: https://sdp.suki-stage.com
+      description: Suki Speech Service form-filling lifecycle and content retrieval.
+      resources:
+        - name: form-filling-sessions
+          path: /api/v1/form-filling/sessions
+          operations:
+            - name: createform
+              method: POST
+              inputParameters:
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-context
+          path: /api/v1/form-filling/sessions/{sessionId}/context
+          operations:
+            - name: seedformcontext
+              method: POST
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+            - name: updateformcontext
+              method: PATCH
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-end
+          path: /api/v1/form-filling/sessions/{sessionId}/end
+          operations:
+            - name: endform
+              method: POST
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-status
+          path: /api/v1/form-filling/sessions/{sessionId}/status
+          operations:
+            - name: getformstatus
+              method: GET
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-structured-data
+          path: /api/v1/form-filling/sessions/{sessionId}/structured-data
+          operations:
+            - name: getformstructured
+              method: GET
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-feedback
+          path: /api/v1/form-filling/sessions/{sessionId}/feedback
+          operations:
+            - name: submitformfeedback
+              method: POST
+              inputParameters:
+                - { name: sessionId, in: path, type: string, required: true }
+                - { name: body, in: body, type: object, required: true }
+              outputParameters:
+                - { name: result, type: object, value: $. }
+        - name: form-filling-templates
+          path: /api/v1/form-filling/templates
+          operations:
+            - name: listformtemplates
+              method: GET
+              outputParameters:
+                - { name: result, type: object, value: $. }
+      authentication:
+        type: apikey
+        key: sdp_suki_token
+        value: '{{env.SUKI_SDP_TOKEN}}'
+        placement: header
+  exposes:
+    - type: mcp
+      namespace: form-filling-sessions-mcp
+      port: 9090
+      transport: http
+      description: MCP adapter for Suki Form Filling sessions.
+      tools:
+        - { name: suki-form-create-session, description: Create a form-filling session bound to a template, hints: { readOnly: false, destructive: false, idempotent: false }, call: form-filling-sessions.createform, with: { body: tools.body } }
+        - { name: suki-form-seed-context, description: Seed context onto a form-filling session, hints: { readOnly: false, destructive: false, idempotent: true }, call: form-filling-sessions.seedformcontext, with: { sessionId: tools.sessionId, body: tools.body } }
+        - { name: suki-form-update-context, description: Update context on a form-filling session, hints: { readOnly: false, destructive: false, idempotent: true }, call: form-filling-sessions.updateformcontext, with: { sessionId: tools.sessionId, body: tools.body } }
+        - { name: suki-form-end-session, description: End a form-filling session, hints: { readOnly: false, destructive: false, idempotent: true }, call: form-filling-sessions.endform, with: { sessionId: tools.sessionId } }
+        - { name: suki-form-get-status, description: Poll form-filling status, hints: { readOnly: true, destructive: false, idempotent: true }, call: form-filling-sessions.getformstatus, with: { sessionId: tools.sessionId } }
+        - { name: suki-form-get-structured-data, description: Retrieve typed structured form data, hints: { readOnly: true, destructive: false, idempotent: true }, call: form-filling-sessions.getformstructured, with: { sessionId: tools.sessionId } }
+        - { name: suki-form-submit-feedback, description: Submit field-level form feedback, hints: { readOnly: false, destructive: false, idempotent: false }, call: form-filling-sessions.submitformfeedback, with: { sessionId: tools.sessionId, body: tools.body } }
+        - { name: suki-form-list-templates, description: List Suki-hosted form templates, hints: { readOnly: true, destructive: false, idempotent: true }, call: form-filling-sessions.listformtemplates, with: {} }
