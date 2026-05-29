@@ -77,6 +77,8 @@ apis:
         url: https://developer.suki.ai/documentation/overview
       - type: OpenAPI
         url: openapi/suki-ambient-api-openapi.yml
+      - type: AsyncAPI
+        url: asyncapi/suki-asyncapi.yml
       - type: JSONSchema
         url: json-schema/suki-ambient-session-schema.json
       - type: JSONSchema
@@ -117,6 +119,8 @@ apis:
         url: https://developer.suki.ai/api-reference/ambient-dictation
       - type: OpenAPI
         url: openapi/suki-dictation-api-openapi.yml
+      - type: AsyncAPI
+        url: asyncapi/suki-asyncapi.yml
       - type: NaftikoCapability
         url: capabilities/dictation-sessions.yaml
       - type: SDK
@@ -143,6 +147,8 @@ apis:
         url: https://developer.suki.ai/form-filling-api-reference/overview
       - type: OpenAPI
         url: openapi/suki-form-filling-api-openapi.yml
+      - type: AsyncAPI
+        url: asyncapi/suki-asyncapi.yml
       - type: JSONSchema
         url: json-schema/suki-form-template-schema.json
       - type: NaftikoCapability
