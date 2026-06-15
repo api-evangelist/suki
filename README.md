@@ -1,63 +1,198 @@
-# Suki AI
+# Suki AI (suki)
 
-Suki is a Redwood City, California healthcare AI company (founded 2017 by Punit Soni and Karthik Rajan; $168M+ raised through Series D) that builds ambient clinical intelligence for clinicians. Suki Assistant listens to doctor-patient conversations and generates specialty-specific clinical notes, patient instructions, orders, and codes — cutting documentation time by an industry-reported 72% across 100+ medical specialties. Beyond the end-user app, the Suki Platform (Suki for Partners) exposes the Suki Speech Service to healthcare technology partners as REST APIs, WebSocket audio streaming, webhooks, and Web / Mobile / Dictation SDKs.
+Suki is a Redwood City, California healthcare AI company building ambient clinical intelligence for clinicians. Founded in 2017 by Punit Soni (CEO, former Google and Flipkart) and Karthik Rajan (former Salesforce), Suki has raised $168M+ across Series A-D from Venrock, March Capital, First Round Capital, MedStar Health, and others. The company's flagship product is Suki Assistant, an AI-powered voice-enabled scribe and documentation assistant that listens to doctor-patient conversations and generates specialty-specific clinical notes, patient instructions, orders, and codes — claimed to cut documentation time by 72% across 100+ specialties. Beyond the end-user assistant, Suki ships Suki Platform (also called Suki for Partners), a developer platform whose Suki Speech Service exposes ambient documentation, dictation, and form-filling capabilities as REST APIs, WebSocket audio-streaming endpoints, webhooks, and SDKs (Web, Headless Web, Mobile iOS, Mobile Android beta, Dictation iframe) so healthcare technology companies can embed Suki's voice AI into their own EHR, telehealth, RCM, or vet-tech applications. Suki has bidirectional ambient integrations with the four leading EHRs — Epic, Oracle Health (Cerner), athenahealth, and MEDITECH — plus partnerships with Amwell, Zoom, HealthEdge, WellSky, MEDENT, and Bond Vet, and is deployed at 400+ health systems and partners with a 70%+ clinician adoption rate.
 
-Suki has bidirectional ambient integrations with the four leading EHRs — Epic, Oracle Health (Cerner), athenahealth, and MEDITECH — and partners with Amwell, Zoom, HealthEdge, WellSky, MEDENT, and Bond Vet. The platform is HIPAA compliant and SOC 2 Type 2 certified, deployed at 400+ health systems with a reported 70%+ clinician adoption rate.
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/suki/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/suki/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+- **Position:** Provider
+- **Access:** 3rd-Party
+
+## Tags
+
+- AI
+- Artificial Intelligence
+- Ambient Clinical Intelligence
+- Medical Scribe
+- Clinical Documentation
+- Voice AI
+- Speech Recognition
+- Healthcare
+- EHR Integration
+- Epic
+- Oracle Health
+- athenahealth
+- MEDITECH
+- Dictation
+- Form Filling
+- Note Generation
+- Generative AI
+- HIPAA
+- SOC2
+- Healthcare Technology
+
+## Timestamps
+
+- **Created:** 2026-05-24
+- **Modified:** 2026-05-24
 
 ## APIs
 
-- **Suki Ambient API** — Ambient session lifecycle (create, seed context, end, status) plus content retrieval (note, transcript, recording, structured data), preferences, and feedback. Pairs with a WebSocket audio stream and webhooks. [`openapi/suki-ambient-api-openapi.yml`](openapi/suki-ambient-api-openapi.yml)
-- **Suki Dictation API** — Real-time clinical dictation with in-field and scratchpad modes. [`openapi/suki-dictation-api-openapi.yml`](openapi/suki-dictation-api-openapi.yml)
-- **Suki Form Filling API** — Voice-driven population of structured medical forms against Suki-hosted templates. [`openapi/suki-form-filling-api-openapi.yml`](openapi/suki-form-filling-api-openapi.yml)
-- **Suki Auth API** — Partner login, provider registration, and JWKS for verifying `sdp_suki_token` JWTs. [`openapi/suki-auth-api-openapi.yml`](openapi/suki-auth-api-openapi.yml)
-- **Suki Info API** — Read-only catalogs of specialties, diagnoses, encounter / visit types, LOINC sections, medication orders, coding systems, and dosage units. [`openapi/suki-info-api-openapi.yml`](openapi/suki-info-api-openapi.yml)
+### Suki Ambient API
 
-## Developer Surface
+REST + WebSocket API that powers ambient clinical documentation. Partners create an ambient session, seed it with patient/encounter context, stream microphone audio over WebSocket, end the session, then poll for and retrieve the generated clinical note, transcript, structured data, and recording. Supports 100+ medical specialties, 80+ spoken languages with English note output, speaker diarization, problem-based charting (PBC), and LOINC-coded note sections.
 
-- Developer Portal: https://developer.suki.ai/
-- Documentation Overview: https://developer.suki.ai/documentation/overview
-- API Reference: https://developer.suki.ai/api-reference/overview
-- Form Filling Reference: https://developer.suki.ai/form-filling-api-reference/overview
-- Release Notes: https://developer.suki.ai/updates/release-notes
-- Base URL: `https://sdp.suki-stage.com/api/v1/`
-- Auth header: `sdp_suki_token: <jwt>`
-- SDKs: `@suki-sdk/react` (Web), `@suki-sdk/platform-react` (Headless Web, beta), `@suki-sdk/dictation-react` (Dictation, beta), `SukiAmbientCore.framework` (iOS); Android coming soon.
+- **Human URL:** [https://developer.suki.ai/api-reference/overview](https://developer.suki.ai/api-reference/overview)
+- **Base URL:** `https://sdp.suki-stage.com/api/v1/`
 
-## Naftiko Capabilities
+#### Tags
 
-- [`capabilities/ambient-sessions.yaml`](capabilities/ambient-sessions.yaml)
-- [`capabilities/ambient-content.yaml`](capabilities/ambient-content.yaml)
-- [`capabilities/dictation-sessions.yaml`](capabilities/dictation-sessions.yaml)
-- [`capabilities/form-filling-sessions.yaml`](capabilities/form-filling-sessions.yaml)
-- [`capabilities/auth-tokens.yaml`](capabilities/auth-tokens.yaml)
-- [`capabilities/info-reference.yaml`](capabilities/info-reference.yaml)
+- Ambient
+- Clinical Documentation
+- Note Generation
+- Speech Recognition
+- WebSocket
 
-## Other Artifacts
+#### Properties
 
-- JSON Schema: [`json-schema/`](json-schema/) — ambient session, clinical note, form template
-- JSON-LD context: [`json-ld/suki-context.jsonld`](json-ld/suki-context.jsonld)
-- Vocabulary: [`vocabulary/suki-vocabulary.yml`](vocabulary/suki-vocabulary.yml)
-- Plans / pricing: [`plans/suki-plans-pricing.yml`](plans/suki-plans-pricing.yml)
-- Rate limits: [`rate-limits/suki-rate-limits.yml`](rate-limits/suki-rate-limits.yml)
-- FinOps: [`finops/suki-finops.yml`](finops/suki-finops.yml)
-- Examples: [`examples/`](examples/)
+- [Documentation](https://developer.suki.ai/api-reference/overview)
+- [Documentation](https://developer.suki.ai/documentation/overview)
+- [OpenAPI](openapi/suki-ambient-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/suki-ambient-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/suki-ambient-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [AsyncAPI](asyncapi/suki-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [JSON Schema](json-schema/suki-ambient-session-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/suki-clinical-note-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [SDK](https://developer.suki.ai/web-sdk/overview)
+- [SDK](https://developer.suki.ai/headless-web-sdk/introduction)
+- [SDK](https://developer.suki.ai/mobile-sdk/overview)
+- [Webhooks](https://developer.suki.ai/api-reference/overview)
 
-## Compliance
+### Suki Dictation API
 
-- HIPAA
-- SOC 2 Type 2
-- Trust Portal: https://trust.suki.ai
+REST + WebSocket API for real-time clinical dictation. Partners open a dictation session, stream audio to a WebSocket, and receive transcribed clinical text. Designed for both in-field dictation (into a single EHR field) and scratchpad mode for free-form capture. Also exposed through the Suki Dictation SDK as a hosted iframe for fast web integration.
 
-## Links
+- **Human URL:** [https://developer.suki.ai/api-reference/ambient-dictation](https://developer.suki.ai/api-reference/ambient-dictation)
+- **Base URL:** `https://sdp.suki-stage.com/api/v1/`
 
-- Website: https://www.suki.ai
-- About: https://www.suki.ai/about/
-- Platform: https://www.suki.ai/platform/
-- Partners: https://www.suki.ai/partners/
-- EHR Integrations: https://www.suki.ai/ehr-integrations/
-- Blog: https://www.suki.ai/blog/
-- Newsroom: https://www.suki.ai/news/
-- Careers: https://www.suki.ai/careers/
-- Contact: https://www.suki.ai/contact-us/
-- LinkedIn: https://www.linkedin.com/company/sukihq/
-- iOS App: https://apps.apple.com/us/app/suki/id1425102117
+#### Tags
+
+- Dictation
+- Speech Recognition
+- WebSocket
+- Clinical Voice
+
+#### Properties
+
+- [Documentation](https://developer.suki.ai/api-reference/ambient-dictation)
+- [OpenAPI](openapi/suki-dictation-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/suki-dictation-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/suki-dictation-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [AsyncAPI](asyncapi/suki-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [SDK](https://developer.suki.ai/dictation-sdk/introduction)
+
+### Suki Form Filling API
+
+REST + WebSocket API that turns clinician voice input into structured form data. Partners create a form-filling session, attach a template, stream audio, then retrieve typed structured output that can be mapped into their own intake, screening, or assessment forms. Includes Suki-hosted form templates accessed via a templates listing endpoint.
+
+- **Human URL:** [https://developer.suki.ai/form-filling-api-reference/overview](https://developer.suki.ai/form-filling-api-reference/overview)
+- **Base URL:** `https://sdp.suki-stage.com/api/v1/`
+
+#### Tags
+
+- Form Filling
+- Structured Data
+- Voice Capture
+- WebSocket
+
+#### Properties
+
+- [Documentation](https://developer.suki.ai/form-filling-api-reference/overview)
+- [OpenAPI](openapi/suki-form-filling-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/suki-form-filling-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/suki-form-filling-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [AsyncAPI](asyncapi/suki-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
+- [JSON Schema](json-schema/suki-form-template-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [Webhooks](https://developer.suki.ai/form-filling-api-reference/overview)
+
+### Suki Auth API
+
+Authentication and token-issuance endpoints used by partners and partner-managed providers to obtain access tokens for the Suki Speech Service. Issues JWTs, exposes JWKS for verification, and registers provider accounts. Every call to Ambient, Dictation, and Form Filling APIs carries the partner token in the `sdp_suki_token` header.
+
+- **Human URL:** [https://developer.suki.ai/api-reference/authentication](https://developer.suki.ai/api-reference/authentication)
+- **Base URL:** `https://sdp.suki-stage.com/api/v1/`
+
+#### Tags
+
+- Authentication
+- Tokens
+- JWT
+- JWKS
+
+#### Properties
+
+- [Documentation](https://developer.suki.ai/api-reference/authentication)
+- [OpenAPI](openapi/suki-auth-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/suki-auth-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/suki-auth-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+### Suki Info API
+
+Reference/lookup endpoints that expose Suki-curated clinical metadata used to drive note generation, ordering, and form filling. Covers supported specialties, diagnoses, encounter and visit types, LOINC note sections, provider roles, medication orders, order coding systems, dosage units, and form templates.
+
+- **Human URL:** [https://developer.suki.ai/api-reference/information](https://developer.suki.ai/api-reference/information)
+- **Base URL:** `https://sdp.suki-stage.com/api/v1/`
+
+#### Tags
+
+- Reference Data
+- Metadata
+- Specialties
+- LOINC
+- Medication Orders
+
+#### Properties
+
+- [Documentation](https://developer.suki.ai/api-reference/information)
+- [OpenAPI](openapi/suki-info-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/suki-info-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/suki-info-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+
+## Common Properties
+
+- [Website](https://www.suki.ai)
+- [About](https://www.suki.ai/about/)
+- [Clinicians](https://www.suki.ai/clinicians/)
+- [Technology](https://www.suki.ai/technology/)
+- [Platform](https://www.suki.ai/platform/)
+- [Partners](https://www.suki.ai/partners/)
+- [E H R Integrations](https://www.suki.ai/ehr-integrations/)
+- [Epic](https://www.suki.ai/epic/)
+- [athenahealth](https://www.suki.ai/athena/)
+- [Developer Portal](https://developer.suki.ai/)
+- [Documentation](https://developer.suki.ai/documentation/overview)
+- [API Reference](https://developer.suki.ai/api-reference/overview)
+- [Release Notes](https://developer.suki.ai/updates/release-notes)
+- [L L Ms Txt](https://developer.suki.ai/llms.txt)
+- [Help Center](https://help.suki.ai)
+- [Trust Portal](https://trust.suki.ai)
+- [Blog](https://www.suki.ai/blog/)
+- [Newsroom](https://www.suki.ai/news/)
+- [Press Releases](https://www.suki.ai/press-media/)
+- [Careers](https://www.suki.ai/careers/)
+- [Contact](https://www.suki.ai/contact-us/)
+- [Download](https://www.suki.ai/download/)
+- [App Store](https://apps.apple.com/us/app/suki/id1425102117)
+- [LinkedIn](https://www.linkedin.com/company/sukihq/)
+- [Plans](plans/suki-plans-pricing.yml)
+- [Rate Limits](rate-limits/suki-rate-limits.yml)
+- [Fin Ops](finops/suki-finops.yml)
+- [JSON-LD](json-ld/suki-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Vocabulary](vocabulary/suki-vocabulary.yml)
+
+## Maintainers
+
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
