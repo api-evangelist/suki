@@ -73,13 +73,13 @@ apis:
         url: json-schema/suki-ambient-session-schema.json
       - type: JSONSchema
         url: json-schema/suki-clinical-note-schema.json
-      - type: SDK
+      - type: SDKs
         url: https://developer.suki.ai/web-sdk/overview
         name: Suki Web SDK (@suki-sdk/react)
-      - type: SDK
+      - type: SDKs
         url: https://developer.suki.ai/headless-web-sdk/introduction
         name: Suki Headless Web SDK (@suki-sdk/platform-react, Beta)
-      - type: SDK
+      - type: SDKs
         url: https://developer.suki.ai/mobile-sdk/overview
         name: Suki Mobile SDK (iOS, SukiAmbientCore.framework)
       - type: Webhooks
@@ -105,7 +105,7 @@ apis:
         url: openapi/suki-dictation-api-openapi.yml
       - type: AsyncAPI
         url: asyncapi/suki-asyncapi.yml
-      - type: SDK
+      - type: SDKs
         url: https://developer.suki.ai/dictation-sdk/introduction
         name: Suki Dictation SDK (@suki-sdk/dictation-react, Beta)
   - aid: suki:suki-form-filling-api
@@ -197,7 +197,7 @@ common:
     url: https://developer.suki.ai/api-reference/overview
   - type: ReleaseNotes
     url: https://developer.suki.ai/updates/release-notes
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://developer.suki.ai/llms.txt
   - type: HelpCenter
     url: https://help.suki.ai
