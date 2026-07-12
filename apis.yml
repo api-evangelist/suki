@@ -171,6 +171,10 @@ apis:
       - type: OpenAPI
         url: openapi/suki-info-api-openapi.yml
 common:
+  - type: DomainSecurity
+    url: security/suki-domain-security.yml
+  - type: Authentication
+    url: authentication/suki-authentication.yml
   - type: Website
     url: https://www.suki.ai
   - type: About

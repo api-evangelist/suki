@@ -1,0 +1,19 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/suki-ambient-api-openapi.yml, openapi/suki-dictation-api-openapi.yml, openapi/suki-form-filling-api-openapi.yml,
+  openapi/suki-info-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: SdpSukiToken
+  type: apiKey
+  in: header
+  parameter: sdp_suki_token
+  sources:
+  - openapi/suki-ambient-api-openapi.yml
+  - openapi/suki-dictation-api-openapi.yml
+  - openapi/suki-form-filling-api-openapi.yml
+  - openapi/suki-info-api-openapi.yml
