@@ -171,6 +171,8 @@ apis:
       - type: OpenAPI
         url: openapi/suki-info-api-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/suki-agentic-access.yml
   - type: DomainSecurity
     url: security/suki-domain-security.yml
   - type: Authentication
