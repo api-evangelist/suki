@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: Suki Ambient Auth Feedback API
+  description: 'REST endpoints for Suki Speech Service ambient clinical documentation.
+
+    Partners create an ambient session, seed it with patient and encounter
+
+    context, stream audio over a separate WebSocket channel, end the session,
+
+    and then retrieve the generated clinical note, transcript, structured data,
+
+    and recording. Pair with the WebSocket audio endpoint
+
+    `wss://sdp.suki-stage.com/api/v1/ambient/sessions/{sessionId}/audio` and the
+
+    webhook callback POSTed to the partner endpoint on session completion.
+
+    '
+  version: 1.0.0
+  contact:
+    name: Suki for Partners
+    url: https://developer.suki.ai
+servers:
+- url: https://sdp.suki-stage.com/api/v1
+  description: Suki Speech Service staging environment
+security:
+- SdpSukiToken: []
+tags:
+- name: Feedback
+  description: Note And Section Feedback
+paths:
+  /feedback/ambient:
+    post:
+      tags:
+      - Feedback
+      summary: Submit Ambient Feedback
+      operationId: submitAmbientFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmbientFeedback'
+      responses:
+        '202':
+          description: Feedback accepted
+  /form-filling/sessions/{sessionId}/feedback:
+    post:
+      tags:
+      - Feedback
+      summary: Submit Form Filling Feedback
+      operationId: submitFormFillingFeedback
+      parameters:
+      - $ref: '#/components/parameters/SessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FormFillingFeedback'
+      responses:
+        '202':
+          description: Feedback accepted
+components:
+  schemas:
+    FormFillingFeedback:
+      type: object
+      properties:
+        fieldId:
+          type: string
+        accurate:
+          type: boolean
+        correctedValue: {}
+        comments:
+          type: string
+    AmbientFeedback:
+      type: object
+      required:
+      - sessionId
+      - rating
+      properties:
+        sessionId:
+          type: string
+          format: uuid
+        rating:
+          type: integer
+          minimum: 1
+          maximum: 5
+        comments:
+          type: string
+        sectionFeedback:
+          type: array
+          items:
+            type: object
+            properties:
+              loinc:
+                type: string
+              accurate:
+                type: boolean
+              edits:
+                type: string
+  parameters:
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  securitySchemes:
+    SdpSukiToken:
+      type: apiKey
+      in: header
+      name: sdp_suki_token
