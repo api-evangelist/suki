@@ -15,9 +15,22 @@ description: >-
   with Amwell, Zoom, HealthEdge, WellSky, MEDENT, and Bond Vet, and is deployed at 400+ health systems and partners with
   a 70%+ clinician adoption rate.
 type: Index
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Provider
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/suki.png
 tags:
   - AI
   - Artificial Intelligence
@@ -44,132 +57,272 @@ created: '2026-05-24'
 modified: '2026-05-24'
 specificationVersion: '0.20'
 apis:
-  - aid: suki:suki-ambient-api
-    name: Suki Ambient API
-    description: >-
-      REST + WebSocket API that powers ambient clinical documentation. Partners create an ambient session, seed it with
-      patient/encounter context, stream microphone audio over WebSocket, end the session, then poll for and retrieve the
-      generated clinical note, transcript, structured data, and recording. Supports 100+ medical specialties, 80+ spoken
-      languages with English note output, speaker diarization, problem-based charting (PBC), and LOINC-coded note
-      sections.
-    humanURL: https://developer.suki.ai/api-reference/overview
-    baseURL: https://sdp.suki-stage.com/api/v1/
-    tags:
-      - Ambient
-      - Clinical Documentation
-      - Note Generation
-      - Speech Recognition
-      - WebSocket
-    properties:
-      - type: Documentation
-        url: https://developer.suki.ai/api-reference/overview
-      - type: Documentation
-        url: https://developer.suki.ai/documentation/overview
-      - type: OpenAPI
-        url: openapi/suki-ambient-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/suki-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/suki-ambient-session-schema.json
-      - type: JSONSchema
-        url: json-schema/suki-clinical-note-schema.json
-      - type: SDKs
-        url: https://developer.suki.ai/web-sdk/overview
-        name: Suki Web SDK (@suki-sdk/react)
-      - type: SDKs
-        url: https://developer.suki.ai/headless-web-sdk/introduction
-        name: Suki Headless Web SDK (@suki-sdk/platform-react, Beta)
-      - type: SDKs
-        url: https://developer.suki.ai/mobile-sdk/overview
-        name: Suki Mobile SDK (iOS, SukiAmbientCore.framework)
-      - type: Webhooks
-        url: https://developer.suki.ai/api-reference/overview
-  - aid: suki:suki-dictation-api
-    name: Suki Dictation API
-    description: >-
-      REST + WebSocket API for real-time clinical dictation. Partners open a dictation session, stream audio to a
-      WebSocket, and receive transcribed clinical text. Designed for both in-field dictation (into a single EHR field)
-      and scratchpad mode for free-form capture. Also exposed through the Suki Dictation SDK as a hosted iframe for fast
-      web integration.
-    humanURL: https://developer.suki.ai/api-reference/ambient-dictation
-    baseURL: https://sdp.suki-stage.com/api/v1/
-    tags:
-      - Dictation
-      - Speech Recognition
-      - WebSocket
-      - Clinical Voice
-    properties:
-      - type: Documentation
-        url: https://developer.suki.ai/api-reference/ambient-dictation
-      - type: OpenAPI
-        url: openapi/suki-dictation-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/suki-asyncapi.yml
-      - type: SDKs
-        url: https://developer.suki.ai/dictation-sdk/introduction
-        name: Suki Dictation SDK (@suki-sdk/dictation-react, Beta)
-  - aid: suki:suki-form-filling-api
-    name: Suki Form Filling API
-    description: >-
-      REST + WebSocket API that turns clinician voice input into structured form data. Partners create a form-filling
-      session, attach a template, stream audio, then retrieve typed structured output that can be mapped into their own
-      intake, screening, or assessment forms. Includes Suki-hosted form templates accessed via a templates listing
-      endpoint.
-    humanURL: https://developer.suki.ai/form-filling-api-reference/overview
-    baseURL: https://sdp.suki-stage.com/api/v1/
-    tags:
-      - Form Filling
-      - Structured Data
-      - Voice Capture
-      - WebSocket
-    properties:
-      - type: Documentation
-        url: https://developer.suki.ai/form-filling-api-reference/overview
-      - type: OpenAPI
-        url: openapi/suki-form-filling-api-openapi.yml
-      - type: AsyncAPI
-        url: asyncapi/suki-asyncapi.yml
-      - type: JSONSchema
-        url: json-schema/suki-form-template-schema.json
-      - type: Webhooks
-        url: https://developer.suki.ai/form-filling-api-reference/overview
-  - aid: suki:suki-auth-api
-    name: Suki Auth API
-    description: >-
-      Authentication and token-issuance endpoints used by partners and partner-managed providers to obtain access tokens
-      for the Suki Speech Service. Issues JWTs, exposes JWKS for verification, and registers provider accounts. Every
-      call to Ambient, Dictation, and Form Filling APIs carries the partner token in the `sdp_suki_token` header.
-    humanURL: https://developer.suki.ai/api-reference/authentication
-    baseURL: https://sdp.suki-stage.com/api/v1/
-    tags:
-      - Authentication
-      - Tokens
-      - JWT
-      - JWKS
-    properties:
-      - type: Documentation
-        url: https://developer.suki.ai/api-reference/authentication
-      - type: OpenAPI
-        url: openapi/suki-auth-api-openapi.yml
-  - aid: suki:suki-info-api
-    name: Suki Info API
-    description: >-
-      Reference/lookup endpoints that expose Suki-curated clinical metadata used to drive note generation, ordering, and
-      form filling. Covers supported specialties, diagnoses, encounter and visit types, LOINC note sections, provider
-      roles, medication orders, order coding systems, dosage units, and form templates.
-    humanURL: https://developer.suki.ai/api-reference/information
-    baseURL: https://sdp.suki-stage.com/api/v1/
-    tags:
-      - Reference Data
-      - Metadata
-      - Specialties
-      - LOINC
-      - Medication Orders
-    properties:
-      - type: Documentation
-        url: https://developer.suki.ai/api-reference/information
-      - type: OpenAPI
-        url: openapi/suki-info-api-openapi.yml
+- aid: suki:suki-dictation-api
+  name: Suki Dictation API
+  description: >-
+    REST + WebSocket API for real-time clinical dictation. Partners open a dictation session, stream audio
+    to a WebSocket, and receive transcribed clinical text. Designed for both in-field dictation (into
+    a single EHR field) and scratchpad mode for free-form capture. Also exposed through the Suki Dictation
+    SDK as a hosted iframe for fast web integration.
+  humanURL: https://developer.suki.ai/api-reference/ambient-dictation
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Dictation
+  - Speech Recognition
+  - WebSocket
+  - Clinical Voice
+  properties:
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/ambient-dictation
+  - type: OpenAPI
+    url: openapi/suki-dictation-api-openapi.yml
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: SDKs
+    url: https://developer.suki.ai/dictation-sdk/introduction
+    name: Suki Dictation SDK (@suki-sdk/dictation-react, Beta)
+- aid: suki:suki-auth-api
+  name: Suki Auth API
+  description: >-
+    Authentication and token-issuance endpoints used by partners and partner-managed providers to obtain
+    access tokens for the Suki Speech Service. Issues JWTs, exposes JWKS for verification, and registers
+    provider accounts. Every call to Ambient, Dictation, and Form Filling APIs carries the partner token
+    in the `sdp_suki_token` header.
+  humanURL: https://developer.suki.ai/api-reference/authentication
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Authentication
+  - Tokens
+  - JWT
+  - JWKS
+  properties:
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/authentication
+  - type: OpenAPI
+    url: openapi/suki-auth-api-openapi.yml
+- aid: suki:suki-info-api
+  name: Suki Info API
+  description: >-
+    Reference/lookup endpoints that expose Suki-curated clinical metadata used to drive note generation,
+    ordering, and form filling. Covers supported specialties, diagnoses, encounter and visit types, LOINC
+    note sections, provider roles, medication orders, order coding systems, dosage units, and form templates.
+  humanURL: https://developer.suki.ai/api-reference/information
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Reference Data
+  - Metadata
+  - Specialties
+  - LOINC
+  - Medication Orders
+  properties:
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/information
+  - type: OpenAPI
+    url: openapi/suki-info-api-openapi.yml
+- aid: suki:suki-content-api
+  name: Suki AI Content API
+  description: Generated Note And Transcript Retrieval
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Content
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-content-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+- aid: suki:suki-feedback-api
+  name: Suki AI Feedback API
+  description: Note And Section Feedback
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+- aid: suki:suki-medicationorders-api
+  name: Suki AI MedicationOrders API
+  description: Medication Ordering Metadata
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - MedicationOrders
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-medicationorders-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+- aid: suki:suki-preferences-api
+  name: Suki AI Preferences API
+  description: Provider Personalization
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-preferences-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+- aid: suki:suki-sessions-api
+  name: Suki AI Sessions API
+  description: Ambient Session Lifecycle
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+- aid: suki:suki-templates-api
+  name: Suki AI Templates API
+  description: Suki Hosted Form Templates
+  humanURL: https://developer.suki.ai/api-reference/overview
+  baseURL: https://sdp.suki-stage.com/api/v1/
+  tags:
+  - Templates
+  properties:
+  - type: OpenAPI
+    url: openapi/suki-templates-api-openapi.yml
+  - type: Documentation
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/documentation/overview
+  - type: AsyncAPI
+    url: asyncapi/suki-asyncapi.yml
+  - type: JSONSchema
+    url: json-schema/suki-ambient-session-schema.json
+  - type: JSONSchema
+    url: json-schema/suki-clinical-note-schema.json
+  - type: SDKs
+    url: https://developer.suki.ai/web-sdk/overview
+  - type: SDKs
+    url: https://developer.suki.ai/headless-web-sdk/introduction
+  - type: SDKs
+    url: https://developer.suki.ai/mobile-sdk/overview
+  - type: Webhooks
+    url: https://developer.suki.ai/api-reference/overview
+  - type: Documentation
+    url: https://developer.suki.ai/form-filling-api-reference/overview
+  - type: JSONSchema
+    url: json-schema/suki-form-template-schema.json
+  - type: Webhooks
+    url: https://developer.suki.ai/form-filling-api-reference/overview
 common:
   - type: AgenticAccess
     url: agentic-access/suki-agentic-access.yml
