@@ -1,0 +1,30 @@
+{
+  "provider": "suki",
+  "sources": [
+    "suki-auth-api-openapi.yml",
+    "suki-content-api-openapi.yml",
+    "suki-dictation-api-openapi.yml",
+    "suki-feedback-api-openapi.yml",
+    "suki-info-api-openapi.yml",
+    "suki-medicationorders-api-openapi.yml",
+    "suki-preferences-api-openapi.yml",
+    "suki-sessions-api-openapi.yml",
+    "suki-templates-api-openapi.yml"
+  ],
+  "outputs": [
+    "suki-auth-api-openapi.yml",
+    "suki-content-api-openapi.yml",
+    "suki-dictation-api-openapi.yml",
+    "suki-feedback-api-openapi.yml",
+    "suki-info-api-openapi.yml",
+    "suki-medicationorders-api-openapi.yml",
+    "suki-preferences-api-openapi.yml",
+    "suki-sessions-api-openapi.yml",
+    "suki-templates-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
